@@ -1,0 +1,10 @@
+keras-gpu=2.2.4
+numba=0.50.1
+numpy=1.16.4
+opencv=4.1.1
+parse=1.12.1
+pillow=6.1.0
+scikit-image=0.15.0
+scikit-learn=0.21.3
+tensorflow-gpu=1.14.0
+python=3.7.4
