@@ -16,7 +16,7 @@ gt=[]
 for f in os.listdir("Dataset/Validation/source"):
     if f.endswith(".png"):
         img.append("Dataset/Validation/source/"+f)
-        gt.append("Dataset/Validation/gt/"+f)
+        gt.append("Dataset/Validation/gt/"+f.replace(".png",".tif"))
 for i in range(len(img)):
     file.write(img[i]+" "+gt[i])
     if i < len(img)-1:
