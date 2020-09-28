@@ -10,18 +10,7 @@ parser.add_argument('--gpu', dest='gpu', type=int, default=0,
                         help='gpu device')
 args = parser.parse_args()
 
-file = open('ICDAR_valid.list', 'w')
-img = []
-gt=[]
-for f in os.listdir("Dataset/Validation/source"):
-    if f.endswith(".png"):
-        img.append("Dataset/Validation/source/"+f)
-        gt.append("Dataset/Validation/gt/"+f.replace(".png",".tif"))
-for i in range(len(img)):
-    file.write(img[i]+" "+gt[i])
-    if i < len(img)-1:
-        file.write("\n")
-file.close()
+
 
 file = open('ICDAR_train.list', 'w')
 datalist=[]
