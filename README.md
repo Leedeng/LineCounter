@@ -6,7 +6,7 @@ zip it
 ***
 Put it in **Dataset** fold  
 ***
-# Step 3
-Create virtual enviroment by requirment.txt
 # Step 2
+Create virtual enviroment by requirment.txt
+# Step 3
 see example.ipynb
