@@ -602,6 +602,7 @@ class DataGenerator3( object ) :
             cls = cv2.resize(black,None,fx=pacent,fy=pacent,interpolation=cv2.INTER_NEAREST)
         
         if ( self.mode == 'training'):
+
             if ( self.prng.randn() > 0) :
                 if ( self.prng.randn() > 0) :
                     img, cls = self.thinplat(img, cls, self.target_size[0],self.target_size[1])
@@ -620,22 +621,16 @@ class DataGenerator3( object ) :
         y = cls
         y =  y.astype('uint8')
         if ( self.mode != 'testing') :
-            
-            #img, cls = self.thinplat(img, cls, self.target_size[0],self.target_size[1])
+
             hl = gethl(x)
             lh = getlh(x)
-       
-            top = cv2.resize(y[hl:lh,:],(y[:hl,:].shape[1],y[:hl,:].shape[0]),interpolation=cv2.INTER_NEAREST)
-            top = (top>0).astype("uint8")
-            y[:hl] = top
-        
-        
-       
-      
-        
+            try:
+                top = cv2.resize(y[hl:lh,:],(y[:hl,:].shape[1],y[:hl,:].shape[0]),interpolation=cv2.INTER_NEAREST)
+                top = (top>0).astype("uint8")
+                y[:hl] = top
+            except:
+                pass
         val_ys = np.unique(y)
-        
-        #print val_ys
         try :
             # 1. remove top and bottom lines
             #y[ y==0 ] = -1

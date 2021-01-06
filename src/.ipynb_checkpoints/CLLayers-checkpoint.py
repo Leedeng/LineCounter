@@ -1,8 +1,9 @@
 from keras import backend as BK
 from keras.models import Model
 from keras.layers import Layer, Wrapper, InputSpec, Input, Activation
-from keras.layers import Conv2D, SeparableConv2D, MaxPooling2D, AveragePooling2D, UpSampling2D
-from keras.layers import GRU, Dense, Concatenate, BatchNormalization, Flatten, GlobalAveragePooling2D
+from keras.layers import Conv2D, SeparableConv2D, MaxPooling2D, AveragePooling2D, UpSampling2D,MaxPool2D,Add
+from keras.layers import GRU, Dense, Concatenate, BatchNormalization, Flatten, GlobalAveragePooling2D,ZeroPadding2D,Conv2DTranspose
+from keras.initializers import glorot_uniform
 from keras.utils import conv_utils
 from keras.constraints import NonNeg
 from keras import activations
@@ -253,7 +254,7 @@ def convbn(x, filters, kernel_size=(3,3), strides=(1,1), padding='same', use_bn=
     """
     if padding == 'symmetric' :
         y = SymmetricPadding(kernel_size, name=name+'_spad')(x)
-        y = SeparableConv2D(filters,
+        y = Conv2D(filters,
                kernel_size,
                activation=None,
                padding='valid',
@@ -261,7 +262,7 @@ def convbn(x, filters, kernel_size=(3,3), strides=(1,1), padding='same', use_bn=
                name=name+'_conv',
                **kwargs)(y)
     else :
-        y = SeparableConv2D(filters,
+        y = Conv2D(filters,
                    kernel_size,
                    activation=None,
                    padding=padding,
@@ -281,14 +282,14 @@ def learning_to_count(x,
                       name='count') :
     if use_sympadding :
         y = SymmetricPadding(kernel_size, name=name+'_spad')(x)
-        y = CounterWrapper(SeparableConv2D(base, 
+        y = CounterWrapper(Conv2D(base, 
                               kernel_size=kernel_size, 
                               padding='valid', 
                               activation=activation, 
                               name=name+'_core'), 
                        name=name+'_pred')(y)
     else :
-        y = CounterWrapper(SeparableConv2D(base, 
+        y = CounterWrapper(Conv2D(base, 
                               kernel_size=kernel_size, 
                               padding='same', 
                               activation=activation, 
@@ -335,6 +336,8 @@ def encoder_pass(x, base,
                 f = MaxPooling2D((2,2), name='encoder_{}p'.format(block+1))(f)
         base *= 2
     return f
+
+
 
 def decoder_pass(x, base, 
                  num_conv_blocks=5, 
@@ -424,9 +427,13 @@ def line_num_propagation(x, filters,
                                  name='prog_du')(f_row)
         # be careful in merge two passes
         f_row = Concatenate(axis=-1, name='prog_along_row')([f_ud, f_du])
+        f_row = convbn(f_row, filters, kernel_size=(3,3))
         return f_row
     else :
         return f_ud
+    
+    
+
 
 class Maximum(Layer):
 
@@ -455,52 +462,3 @@ class Maximum(Layer):
         shape_a, shape_b = input_shape
         return  shape_b
     
-class Robustloss(Layer):
-
-    def __init__(self,
-                 init_a = 2.,
-                 init_c = 1.,
-                 **kwargs):
-        #self.output_dim = output_dim
-        self.init_a = init_a
-        self.init_c = init_c
-        super(Robustloss, self).__init__(**kwargs)
-
-    def build(self, input_shape):
-        assert isinstance(input_shape, list)
-        self.a = self.add_weight(name='a',
-                                shape=(1,1,1,1),
-                                dtype='float32',
-                                initializer="uniform",
-                                trainable=True,
-                                )
-        self.c = self.add_weight(name='c',
-                                shape=(1,1,1,1),
-                                dtype='float32',
-                                initializer="uniform",
-                                trainable=True,
-                                constraint=NonNeg(),
-                                )
-        # 为该层创建一个可训练的权重
-        
-        # A = ONLY TEXT RESULT
-        # b = ALL IMAGE INCLUDING TEXT AND BACKGROUND
-        super(Robustloss, self).build(input_shape)  # 一定要在最后调用它
-
-    def call(self, x):
-        assert isinstance(x, list)
-        source, gt = x
-        t = gt - source
-    
-        T = BK.abs(self.a-2)/self.a * (BK.pow((((t/self.c)*(t/self.c))/BK.abs(self.a-2) + 1),self.a/2) - 1)
-        
-        
-        #max_value = BK.max(a) 
-        #T = BK.minimum(max_value,b)
-        #T = BK.maximum(1.,b)
-        return T
-
-    def compute_output_shape(self, input_shape):
-        assert isinstance(input_shape, list)
-        shape_a, shape_b = input_shape
-        return  shape_b

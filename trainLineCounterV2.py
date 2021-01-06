@@ -176,6 +176,7 @@ def create_model_v2(base: int=8,
     else :
         f = img    
     # 2. encoder pass
+  
     f = CLLayers.encoder_pass(img, base, 
                      num_conv_blocks=num_conv_blocks, 
                      use_bn=use_encoder_bn, 
@@ -183,9 +184,16 @@ def create_model_v2(base: int=8,
                      kernel_size_a=kernel_size_a,
                      kernel_size_b=kernel_size_b,
                      use_sympadding=use_sympadding)
+   
+    #f = CLLayers.encoder_vgg(img,base)
+  
+    #f = CLLayers.encoder_ResNet50(f,base)
+
+    #f = CLLayers.inception_v4_backbone(img)
+
     # 3. line propagation
     f = CLLayers.line_num_propagation(f, 
-                             base*counter_multiplier, 
+                             base, 
                              activation=activation,
                              use_samplewise_conv=use_samplewise_conv,
                              bidirectional=bidirectional,
@@ -193,12 +201,13 @@ def create_model_v2(base: int=8,
     # 4. insert counter if necessary
     if (counter_location == 'before_decoder') :
         f = CLLayers.learning_to_count(f, 
-                                       base*counter_multiplier, 
+                                       base, 
                                        kernel_size=(3,3), 
                                        use_sympadding=use_sympadding, 
-                                       activation='hard_sigmoid', 
+                                       activation='sigmoid', 
                                        name='count')
     # 5. decoder pass
+    
     f = CLLayers.decoder_pass(f, base, 
                      num_conv_blocks=num_conv_blocks, 
                      use_bn=use_decoder_bn, 
@@ -206,13 +215,18 @@ def create_model_v2(base: int=8,
                      kernel_size_a=kernel_size_a,
                      kernel_size_b=kernel_size_b,
                      use_sympadding=use_sympadding)
+    
+    #f = CLLayers.decoder_vgg(f,base)
+    
+    #f = CLLayers.decoder_ResNet50(f,base)
+   
     # 6. final prediction
     if (counter_location == 'after_decoder') :
         f = CLLayers.learning_to_count(f, 
                                        base, 
                                        kernel_size=(3,3), 
                                        use_sympadding=use_sympadding, 
-                                       activation='hard_sigmoid', 
+                                       activation='sigmoid', 
                                        name='count')
         out = CLLayers.convbn(f, 1, (3,3), 
                               padding='symmetric' if use_sympadding else 'same', 
@@ -224,7 +238,7 @@ def create_model_v2(base: int=8,
                                        base, 
                                        kernel_size=(3,3), 
                                        use_sympadding=use_sympadding, 
-                                       activation='hard_sigmoid', 
+                                       activation='sigmoid', 
                                        name='count')
         out = CLLayers.convbn(f, 1, (3,3), 
                               padding='symmetric' if use_sympadding else 'same', 
@@ -326,7 +340,7 @@ if __name__ == '__main__' :
                                                  batch_size=args.batch_size,
                                                  target_size=(args.target_size_height,args.target_size_width),
                                                  is_input_binary=True) 
-    # 3. prepare training model
+    # 3. prepare training mofrom keras.layers.merge import concatenate, adddel
     model = create_model_v2(base=args.base,
                             counter_multiplier=args.counter_multiplier,
                             activation=args.activation,
@@ -341,7 +355,7 @@ if __name__ == '__main__' :
                             noise_rate=args.noise_rate,
                             use_sympadding=args.use_sympadding
                             )  
-    model.load_weights("expts/2022/baseline_ICDAR_1088x768xnewlayer/models/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1-0.0000.h5")
+    #model.load_weights("expts/2022/baseline_ICDAR_1088x768xnewlayer/models/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1-0.0000.h5")
     #model = load_model("expts/2022/baseline_384x544/models/BF8:BLK5:BN0,0:M8:LAtanh:LCNone:SC0:DSdrop:USbilinear:BD0:N0.05:P1/BF8:BLK5:BN0,0:M8:LAtanh:LCNone:SC0:DSdrop:USbilinear:BD0:N0.05:P1-0.8245.h5")
     #model.load_weights("expts/2023/ICDAR_1088x768xnewloss_origin/models/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1-0.8892.h5")
     model_name = model.name
