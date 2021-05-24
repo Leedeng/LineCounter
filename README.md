@@ -65,7 +65,7 @@ Other versions might also work, but are not tested.
 Donwload the repo and create virtual environment by follow commands
 
 ```
-conda create --name LineCounter --file spec-env.txt
+conda create --name LineCounter --file requirements.txt
 ```
 
 Then play with the provided ipython notebook
