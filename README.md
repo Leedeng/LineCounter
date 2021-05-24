@@ -11,15 +11,15 @@ Create virtual enviroment by requirment.txt
 see example.ipynb
 
 
-# SauvolaNet: Learning Adaptive Sauvola Network
+# LineCounter: Learning Handwritten Text Line Segmentation by Counting 
 
 <div align="left">
-    <img src="https://www.um.edu.mo/wp-content/uploads/2020/09/UM-Logo_V-Black-1024x813.png" width="30%"><img src="https://viplab.cis.um.edu.mo/images/logo_5.JPG" width="30%"><img src="https://icdar2021.org/wp-content/uploads/icdar2021-logo.png" width="30%">     
+    <img src="https://www.um.edu.mo/wp-content/uploads/2020/09/UM-Logo_V-Black-1024x813.png" width="30%"><img src="https://viplab.cis.um.edu.mo/images/logo_5.JPG" width="30%"><img src="https://2021.ieeeicip.org/images/ip21-logo.svg" width="30%">     
 </div>
 
 ***
 
-This is the official repo for the SauvolaNet (ICDAR2021). For details of SauvolaNet, please refer to 
+This is the official repo for the LineCounter (ICIP 2021). For details of LineCounter, please refer to 
 
 ```
 @article{li2021sauvolanet,
