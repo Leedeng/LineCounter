@@ -68,6 +68,12 @@ Donwload the repo and create virtual environment by follow commands
 conda create --name LineCounter --file requirements.txt
 ```
 
+Download [trained-model]https://drive.google.com/file/d/1fMUkyg67QLLzyDMkU1vgnsgDIKb9SPF9/view?usp=sharing
+
+***
+Put trained-model in **Line-Counter/expts/Allx768xDnCNN/models/BF32:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD1:N0.00:P1/**   
+***
+
 Then play with the provided ipython notebook
 
 Alternatively, one may play with the inference code using this [google colab link](https://colab.research.google.com/drive/1aGYXVRuTf1dhoKSsOCPcB4vKULtplFSA?usp=sharing).
