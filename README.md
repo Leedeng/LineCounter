@@ -36,7 +36,7 @@ More precisely, SauvolaNet consists of three modules namely, Multi-window Sauvol
 - **PWA generates pixelwise attention of window size**
 - **AST generates pixelwise threshold by fusing the result of MWS and PWA.**
 
-<img src="https://github.com/Leedeng/SauvolaNet/blob/main/Image/Structure2.png" width="50%">
+<img src="https://github.com/Leedeng/LineCounter/blob/master/image/Structure.png" width="50%">
 
 # Dependency
 
