@@ -20,9 +20,7 @@ import argparse
 import parse
 from typing import Tuple, List, Iterator, Any, Dict
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, TensorBoard, EarlyStopping
-from src import CLLayers
-from src import CLLosses
-from src import CLUtils
+from LineCounter.src import CLLayers, CLLosses, CLUtils
 from keras.models import Model
 from keras.optimizers import Adam
 from keras.constraints import *

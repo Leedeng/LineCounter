@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 from matplotlib import pyplot
 from numba import jit
-import thinplate as tps
+#import thinplate as tps
 def correct_labels( img, thresh=128 ) :
     """Reorder line labels by y-coordinates
     """
