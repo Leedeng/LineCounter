@@ -22,21 +22,8 @@ This is the official repo for the LineCounter (ICIP 2021). For details of LineCo
 
 # Overview
 
-SauvolaNet is an end-to-end document binarization solutions. It optimal three hyper-parameters of classic Sauvola algriothim. Compare with exisiting solutions, SauvolaNet has follow advantages:
 
-- **SauvolaNet do not have any Pre/Post-processing**
-- **SauvolaNet has comparable performance with SoTA**
-- **SauvolaNet has a super lightweight network stucture and faster than DNN-based SoTA**
-
-<img src="https://github.com/Leedeng/SauvolaNet/blob/main/Image/FPS.png" width="50%">
-
-More precisely, SauvolaNet consists of three modules namely, Multi-window Sauvola (MWS), Pixelwise Window Attention (PWA), and Adaptive Sauolva Threshold (AST).
-
-- **MWS generates multiple windows of different size Sauvola with trainable parameters**
-- **PWA generates pixelwise attention of window size**
-- **AST generates pixelwise threshold by fusing the result of MWS and PWA.**
-
-<img src="https://github.com/Leedeng/LineCounter/blob/master/image/Structure.png" width="50%">
+<img src="https://github.com/Leedeng/LineCounter/blob/master/image/Structure.png" width="80%">
 
 # Dependency
 
