@@ -50,7 +50,7 @@ Put trained-model in **LineCounter/expts/Allx768xDnCNN/models/BF32:BLK5:BN0,0:M8
 
 Then play with the provided ipython notebook
 
-Alternatively, one may play with the inference code using this [google colab link](https://colab.research.google.com/drive/1aGYXVRuTf1dhoKSsOCPcB4vKULtplFSA?usp=sharing).
+Alternatively, one may play with the inference code using this [google colab link](https://colab.research.google.com/drive/1v-h7eSNhxfCTqQZC_IPGEp_s-sfA6dxn?usp=sharing).
 
 
 # Concat
