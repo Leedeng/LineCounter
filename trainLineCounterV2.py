@@ -1,16 +1,3 @@
-"""
-Line counter LSTM training script
-
-NOTE: you need to specify GPU node in commend line
-
-i.e. CUDA_VISIBLE_DEVICES=0 python trainLineCounter.py arg1 arg2 ...
-
-v2: 
-- support symmetric padding, 
-- add func learning_to_count
-- fix bug "after decoder"
-
-"""
 import numpy as np 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='3' 
@@ -20,7 +7,9 @@ import argparse
 import parse
 from typing import Tuple, List, Iterator, Any, Dict
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, TensorBoard, EarlyStopping
-from LineCounter.src import CLLayers, CLLosses, CLUtils
+from src import CLLayers
+from src import CLLosses
+from src import CLUtils
 from keras.models import Model
 from keras.optimizers import Adam
 from keras.constraints import *
@@ -191,7 +180,7 @@ def create_model_v2(base: int=8,
 
     # 3. line propagation
     f = CLLayers.line_num_propagation(f, 
-                             512, 
+                             base, 
                              activation=activation,
                              use_samplewise_conv=use_samplewise_conv,
                              bidirectional=bidirectional,
@@ -199,7 +188,7 @@ def create_model_v2(base: int=8,
     # 4. insert counter if necessary
     if (counter_location == 'before_decoder') :
         f = CLLayers.learning_to_count(f, 
-                                       512, 
+                                       base, 
                                        kernel_size=(3,3), 
                                        use_sympadding=use_sympadding, 
                                        activation='sigmoid', 
@@ -353,6 +342,9 @@ if __name__ == '__main__' :
                             noise_rate=args.noise_rate,
                             use_sympadding=args.use_sympadding
                             )  
+    #model.load_weights("expts/2022/baseline_ICDAR_1088x768xnewlayer/models/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1-0.0000.h5")
+    #model = load_model("expts/2022/baseline_384x544/models/BF8:BLK5:BN0,0:M8:LAtanh:LCNone:SC0:DSdrop:USbilinear:BD0:N0.05:P1/BF8:BLK5:BN0,0:M8:LAtanh:LCNone:SC0:DSdrop:USbilinear:BD0:N0.05:P1-0.8245.h5")
+    #model.load_weights("expts/2023/ICDAR_1088x768xnewloss_origin/models/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1/BF8:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD0:N0.05:P1-0.8892.h5")
     model_name = model.name
 
 
@@ -401,3 +393,5 @@ if __name__ == '__main__' :
         print("Reason:", e)
         print('-'*100)
    ''' 
+
+
