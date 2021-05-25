@@ -9,11 +9,13 @@
 This is the official repo for the LineCounter (ICIP 2021). For details of LineCounter, please refer to 
 
 ```
-@article{li2021sauvolanet,
-  title={SauvolaNet: Learning Adaptive Sauvola Network for Degraded Document Binarization},
-  author={Li, Deng and Wu, Yue and Zhou, Yicong},
-  journal={arXiv preprint arXiv:2105.05521},
-  year={2021}
+@misc{li2021linecounter,
+      title={LineCounter: Learning Handwritten Text Line Segmentation by Counting}, 
+      author={Deng Li and Yue Wu and Yicong Zhou},
+      year={2021},
+      eprint={2105.11307},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
 
 ```
