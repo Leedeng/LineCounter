@@ -6,7 +6,7 @@
 
 ***
 
-This is the official repo for the LineCounter (ICIP 2021). For details of LineCounter, please refer to 
+This is the official repo for LineCounter (ICIP 2021). For details of LineCounter, please refer to 
 
 ```
 @misc{li2021linecounter,
@@ -33,12 +33,12 @@ SauvolaNet is written in the TensorFlow.
   
   - TensorFlow-GPU: 1.15.0
   
-Other versions might also work, but are not tested.
+Other versions might also work but are not tested.
 
 
 # Demo
 
-Donwload the repo and create virtual environment by follow commands
+Download the repo and create the virtual environment by following commands
 
 ```
 conda create --name LineCounter --file requirements.txt
@@ -50,11 +50,11 @@ Download [trained-model](https://drive.google.com/file/d/1fMUkyg67QLLzyDMkU1vgns
 Put trained-model in **LineCounter/expts/Allx768xDnCNN/models/BF32:BLK5:BN0,0:M8:LArelu:LCbefore_decoder:SC0:DSdrop:USbilinear:BD1:N0.00:P1/**   
 ***
 
-Then play with the provided ipython notebook
+Then play with the provided ipython notebook.
 
 Alternatively, one may play with the inference code using this [google colab link](https://colab.research.google.com/drive/1v-h7eSNhxfCTqQZC_IPGEp_s-sfA6dxn?usp=sharing).
 
 
 # Concat
 
-For any paper related questions, please feel free to contact leedengsh@gmail.com
+For any paper related questions, please feel free to contact leedengsh@gmail.com.
