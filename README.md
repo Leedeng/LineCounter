@@ -9,14 +9,7 @@
 This is the official repo for LineCounter (ICIP 2021). For details of LineCounter, please refer to 
 
 ```
-@misc{li2021linecounter,
-      title={LineCounter: Learning Handwritten Text Line Segmentation by Counting}, 
-      author={Deng Li and Yue Wu and Yicong Zhou},
-      year={2021},
-      eprint={2105.11307},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}
+
 
 ```
 
