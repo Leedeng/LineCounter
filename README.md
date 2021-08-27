@@ -9,8 +9,15 @@
 This is the official repo for LineCounter (ICIP 2021). For details of LineCounter, please refer to 
 
 ```
-@INPROCEEDINGS{9506664,  author={Li, Deng and Wu, Yue and Zhou, Yicong},  booktitle={2021 IEEE International Conference on Image Processing (ICIP)},   title={Linecounter: Learning Handwritten Text Line Segmentation By Counting},   year={2021},  volume={},  number={},  pages={929-933},  doi={10.1109/ICIP42928.2021.9506664}}
-
+@INPROCEEDINGS{9506664,  
+  author={Li, Deng and Wu, Yue and Zhou, Yicong},  
+  booktitle={2021 IEEE International Conference on Image Processing (ICIP)},   
+  title={Linecounter: Learning Handwritten Text Line Segmentation By Counting},   
+  year={2021},  
+  volume={},  
+  number={},  
+  pages={929-933},  
+  doi={10.1109/ICIP42928.2021.9506664}}
 ```
 
 ***
