@@ -1,7 +1,7 @@
 # LineCounter: Learning Handwritten Text Line Segmentation by Counting 
 
-<div align="left">
-    <img src="https://www.um.edu.mo/wp-content/uploads/2020/09/UM-Logo_V-Black-1024x813.png" width="50%">
+<div align="center">
+    <img src="https://www.um.edu.mo/wp-content/uploads/2020/09/UM-Logo_V-Black-1024x813.png" width="30%">
 </div>
 
 ***
